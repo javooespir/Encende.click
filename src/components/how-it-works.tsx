@@ -1,20 +1,20 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { motion } from "framer-motion";
 
 const steps = [
   {
     number: "01",
-    title: "Me contás de tu negocio",
+    title: "Nos contás de tu negocio",
     description:
-      "15 minutos por WhatsApp o llamada. Me decís qué hace tu negocio, quiénes son tus clientes y qué necesitás. Sin tecnicismos.",
-    detail: "Nada de formularios eternos.",
+      "15 minutos por WhatsApp o llamada. Nos decís qué hace tu negocio, quiénes son tus clientes y qué necesitás. Sin tecnicismos.",
+    detail: "Sin formularios ni reuniones.",
   },
   {
     number: "02",
-    title: "Yo armo la página",
+    title: "Te armamos la página",
     description:
-      "En pocos días te mando un preview para que veas cómo quedó. Hacemos los cambios que quieras hasta que te guste.",
+      "En pocos días te mandamos un preview para que veas cómo quedó. Hacemos los cambios que quieras hasta que te guste.",
     detail: "Sin sorpresas ni vueltas.",
   },
   {
@@ -22,79 +22,91 @@ const steps = [
     title: "Listo. Estás en internet",
     description:
       "La página queda online con tu dominio, tus servicios y tu contacto. Vos seguís haciendo tu trabajo.",
-    detail: "Y quedo disponible para futuros cambios.",
+    detail: "Y seguimos disponibles cuando lo necesitás.",
   },
 ];
 
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 32 },
-  show: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, delay: i * 0.15, ease: "easeOut" },
-  }),
-};
-
 export default function HowItWorks() {
   return (
-    <section id="como-funciona" className="py-24 px-4 sm:px-6 bg-background">
-      <div className="max-w-6xl mx-auto">
+    <section id="como-funciona" className="py-24 px-4 sm:px-6 bg-primary relative">
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, oklch(1 0 0 / 0.06) 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
+        }}
+      />
+
+      <div className="max-w-4xl mx-auto relative">
         <motion.div
-          className="mb-16 max-w-xl"
+          className="mb-14 max-w-xl"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
-          <p className="text-accent font-semibold text-sm uppercase tracking-wider mb-3">
+          <p className="text-amber-400 font-semibold text-sm uppercase tracking-wider mb-3">
             El proceso
           </p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-4">
+          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
             Así funciona
           </h2>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-white/75 text-lg">
             Tres pasos. Sin reuniones interminables, sin que tengas que aprender
             nada técnico.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
-          {/* Connector line */}
-          <div
-            className="hidden md:block absolute top-10 h-px bg-gradient-to-r from-transparent via-border to-transparent"
-            style={{
-              left: "calc(16.67% + 40px)",
-              right: "calc(16.67% + 40px)",
-            }}
-          />
-
+        {/* Las tarjetas se apilan con position: sticky. Sin sticky (o sin JS)
+            quedan una debajo de la otra, que es la lectura normal. */}
+        <ol className="flex flex-col gap-6 md:gap-48 list-none p-0 m-0">
           {steps.map((step, i) => (
-            <motion.div
+            <li
               key={step.number}
-              className="flex flex-col gap-5"
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              custom={i}
+              className="md:sticky"
+              style={{ top: `${88 + i * 28}px` }}
             >
-              <div className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center relative z-10 shrink-0 shadow-lg shadow-primary/20">
-                <span className="text-3xl font-bold text-accent">
+              <motion.div
+                className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#152339] p-7 sm:p-9 shadow-xl shadow-black/20"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.45, ease: "easeOut" }}
+              >
+                <span
+                  aria-hidden="true"
+                  className="absolute -top-8 right-2 text-[9rem] font-bold text-white/[0.04] select-none pointer-events-none leading-none"
+                >
                   {step.number}
                 </span>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-primary mb-2">
-                  {step.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed mb-3">
-                  {step.description}
-                </p>
-                <p className="text-sm font-medium text-accent">{step.detail}</p>
-              </div>
-            </motion.div>
+
+                <div className="relative flex flex-col sm:flex-row sm:items-start gap-5 sm:gap-7">
+                  <div className="w-16 h-16 bg-accent rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-accent/25">
+                    <span className="text-2xl font-bold text-primary">
+                      {step.number}
+                    </span>
+                  </div>
+
+                  <div className="min-w-0">
+                    <h3 className="text-xl sm:text-2xl font-semibold text-white mb-2">
+                      {step.title}
+                    </h3>
+                    <p className="text-white/75 leading-relaxed mb-3">
+                      {step.description}
+                    </p>
+                    <p className="text-sm font-medium text-amber-400">
+                      {step.detail}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            </li>
           ))}
-        </div>
+        </ol>
+
+        {/* Espacio para que el apilado se complete antes de salir de la sección */}
+        <div className="hidden md:block h-24" aria-hidden="true" />
       </div>
     </section>
   );

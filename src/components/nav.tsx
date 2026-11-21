@@ -6,12 +6,14 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useWhatsAppNumber, buildWaUrl } from "@/hooks/use-whatsapp";
 
-const WHATSAPP_URL =
-  "https://wa.me/541131462214?text=Hola%21+Me+interesa+saber+m%C3%A1s+sobre+tener+mi+p%C3%A1gina+web.";
+const WA_TEXT = "Hola! Me interesa saber más sobre tener mi página web.";
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
+  const waNumber = useWhatsAppNumber();
+  const waUrl = buildWaUrl(waNumber, WA_TEXT);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
@@ -30,7 +32,7 @@ export default function Nav() {
 
         <div className="hidden sm:flex items-center gap-4">
           <a
-            href={WHATSAPP_URL}
+            href={waUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
@@ -59,21 +61,35 @@ export default function Nav() {
             <nav className="flex flex-col gap-6 pt-8">
               <a
                 href="#posibilidades"
-                className="text-lg font-medium text-foreground"
+                className="text-lg font-medium text-foreground hover:text-primary transition-colors"
                 onClick={() => setOpen(false)}
               >
                 Ver posibilidades
               </a>
               <a
                 href="#como-funciona"
-                className="text-lg font-medium text-foreground"
+                className="text-lg font-medium text-foreground hover:text-primary transition-colors"
                 onClick={() => setOpen(false)}
               >
                 Cómo funciona
               </a>
               <a
+                href="#planes"
+                className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+                onClick={() => setOpen(false)}
+              >
+                Planes y precios
+              </a>
+              <a
+                href="#preguntas"
+                className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+                onClick={() => setOpen(false)}
+              >
+                Preguntas
+              </a>
+              <a
                 href="#contacto"
-                className="text-lg font-medium text-foreground"
+                className="text-lg font-medium text-foreground hover:text-primary transition-colors"
                 onClick={() => setOpen(false)}
               >
                 Contacto

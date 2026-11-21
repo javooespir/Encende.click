@@ -6,20 +6,20 @@ import {
   Scissors,
   Utensils,
   Wrench,
-  Calendar,
   ShoppingBag,
   Dumbbell,
   Briefcase,
   Globe,
+  Sparkles,
   CheckCircle2,
   MessageCircle,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
+import { useWhatsAppNumber, buildWaUrl } from "@/hooks/use-whatsapp";
 
-const WHATSAPP_URL =
-  "https://wa.me/541131462214?text=Hola%21+Me+interesa+saber+m%C3%A1s+sobre+tener+mi+p%C3%A1gina+web.";
+const WA_TEXT = "Hola! Me interesa saber más sobre tener mi página web.";
 
 interface Case {
   icon: LucideIcon;
@@ -34,6 +34,23 @@ interface Case {
 }
 
 const cases: Case[] = [
+  {
+    icon: Sparkles,
+    type: "Uñas / Pestañas",
+    short: "Agenda que trabaja sola",
+    description:
+      "Tus clientas reservan su turno cuando quieren. Vos llegás y sabés exactamente qué tratamiento tiene cada una, sin llamar a nadie.",
+    features: [
+      "Reserva de turnos online 24/7",
+      "Descripción del tratamiento por turno",
+      "Recordatorio por WhatsApp",
+      "Galería de trabajos y resultados",
+    ],
+    gradientFrom: "from-fuchsia-50 to-purple-50",
+    iconBg: "bg-fuchsia-100",
+    iconColor: "text-fuchsia-600",
+    checkColor: "text-fuchsia-500",
+  },
   {
     icon: Scissors,
     type: "Peluquería",
@@ -67,40 +84,6 @@ const cases: Case[] = [
     iconBg: "bg-orange-100",
     iconColor: "text-orange-600",
     checkColor: "text-orange-500",
-  },
-  {
-    icon: Wrench,
-    type: "Taller / Mecánica",
-    short: "Aparecé en Google",
-    description:
-      "Cuando alguien busca 'taller mecánico cerca' — tu negocio aparece. Con dirección, horario y contacto.",
-    features: [
-      "Posicionamiento en Google Maps",
-      "Horarios y días de atención",
-      "Lista de servicios con precios",
-      "Formulario de consulta o WhatsApp",
-    ],
-    gradientFrom: "from-slate-50 to-zinc-50",
-    iconBg: "bg-slate-100",
-    iconColor: "text-slate-600",
-    checkColor: "text-slate-500",
-  },
-  {
-    icon: Calendar,
-    type: "Médico / Consultorio",
-    short: "Turnos sin secretaria",
-    description:
-      "Tus pacientes sacan turno online. Sin llamadas perdidas, sin papel, sin que tengas que estar pendiente.",
-    features: [
-      "Agenda online de turnos",
-      "Ficha profesional y especialidad",
-      "Obras sociales que aceptás",
-      "Confirmación automática",
-    ],
-    gradientFrom: "from-blue-50 to-cyan-50",
-    iconBg: "bg-blue-100",
-    iconColor: "text-blue-600",
-    checkColor: "text-blue-500",
   },
   {
     icon: ShoppingBag,
@@ -154,6 +137,23 @@ const cases: Case[] = [
     checkColor: "text-indigo-500",
   },
   {
+    icon: Wrench,
+    type: "Taller / Mecánica",
+    short: "Aparecé en Google",
+    description:
+      "Cuando alguien busca 'taller mecánico cerca' — tu negocio aparece. Con dirección, horario y contacto.",
+    features: [
+      "Posicionamiento en Google Maps",
+      "Horarios y días de atención",
+      "Lista de servicios con precios",
+      "Formulario de consulta o WhatsApp",
+    ],
+    gradientFrom: "from-slate-50 to-zinc-50",
+    iconBg: "bg-slate-100",
+    iconColor: "text-slate-600",
+    checkColor: "text-slate-500",
+  },
+  {
     icon: Globe,
     type: "Cualquier negocio",
     short: "Empezá por acá",
@@ -175,6 +175,8 @@ const cases: Case[] = [
 export default function UseCases() {
   const [active, setActive] = useState(0);
   const current = cases[active];
+  const waNumber = useWhatsAppNumber();
+  const waUrl = buildWaUrl(waNumber, WA_TEXT);
 
   return (
     <section id="posibilidades" className="py-24 px-4 sm:px-6 bg-white">
@@ -186,10 +188,10 @@ export default function UseCases() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
-          <p className="text-accent font-semibold text-sm uppercase tracking-wider mb-3">
+          <p className="text-amber-700 font-semibold text-sm uppercase tracking-wider mb-3">
             Posibilidades
           </p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-4">
+          <h2 className="text-4xl sm:text-5xl font-bold text-primary mb-4">
             ¿Para qué te serviría una página web?
           </h2>
           <p className="text-muted-foreground text-lg">
@@ -255,7 +257,7 @@ export default function UseCases() {
                       {current.description}
                     </p>
                     <a
-                      href={WHATSAPP_URL}
+                      href={waUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className={cn(

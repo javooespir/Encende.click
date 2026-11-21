@@ -13,26 +13,6 @@ const socialLinks = [
       </svg>
     ),
   },
-  {
-    label: "Facebook",
-    href: "#",
-    svg: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-      </svg>
-    ),
-  },
-  {
-    label: "LinkedIn",
-    href: "#",
-    svg: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-        <rect x="2" y="9" width="4" height="12" />
-        <circle cx="4" cy="4" r="2" />
-      </svg>
-    ),
-  },
 ];
 
 export default function Footer() {
@@ -68,19 +48,22 @@ export default function Footer() {
 
         <Separator className="mb-8" />
 
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} Encendé. Todos los derechos reservados.</p>
-          <p>
-            Built with{" "}
-            <a
-              href="https://tododeia.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors underline underline-offset-2"
-            >
-              Claude Web Builder by Tododeia
-            </a>
+        <div className="flex flex-col items-center gap-3">
+          <p className="text-center text-sm text-muted-foreground">
+            © {new Date().getFullYear()} Encendé. Todos los derechos reservados.
           </p>
+          <div className="flex items-center gap-4 text-xs text-muted-foreground/60">
+            <a href="#" className="hover:text-muted-foreground transition-colors">Privacidad</a>
+            <span>·</span>
+            <a href="#" className="hover:text-muted-foreground transition-colors">Términos</a>
+            <span>·</span>
+            <a
+              href="https://encende.click"
+              className="hover:text-muted-foreground transition-colors"
+            >
+              Creado por Encendé
+            </a>
+          </div>
         </div>
       </div>
     </footer>

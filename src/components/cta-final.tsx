@@ -1,12 +1,18 @@
-import { MessageCircle, Mail } from "lucide-react";
+"use client";
+
+import { MessageCircle, Mail, Phone } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useWhatsAppNumber, buildWaUrl, buildPhoneUrl } from "@/hooks/use-whatsapp";
 
-const WHATSAPP_URL =
-  "https://wa.me/541131462214?text=Hola%21+Me+interesa+saber+m%C3%A1s+sobre+tener+mi+p%C3%A1gina+web.";
+const WA_TEXT = "Hola! Me interesa saber más sobre tener mi página web.";
 const EMAIL = "javierespir@gmail.com";
 
 export default function CtaFinal() {
+  const waNumber = useWhatsAppNumber();
+  const waUrl = buildWaUrl(waNumber, WA_TEXT);
+  const phoneUrl = buildPhoneUrl(waNumber);
+
   return (
     <section
       id="contacto"
@@ -20,17 +26,19 @@ export default function CtaFinal() {
           por tu negocio?
         </h2>
         <p className="text-white/70 text-lg mb-10 max-w-xl mx-auto leading-relaxed">
-          Mandame un mensaje. Te cuento en concreto qué se puede hacer con tu
-          negocio puntual. Sin compromiso.
+          Mandanos un mensaje. Te contamos en concreto qué se puede hacer con
+          tu negocio puntual. Sin compromiso.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
           <a
-            href={WHATSAPP_URL}
+            href={waUrl}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Contactar por WhatsApp"
             className={cn(
               buttonVariants({ size: "lg" }),
-              "bg-accent hover:bg-accent/90 text-white gap-2 text-base"
+              "bg-accent hover:bg-accent/90 text-white gap-2 text-base shadow-lg shadow-accent/30"
             )}
           >
             <MessageCircle className="w-5 h-5" />
@@ -38,6 +46,7 @@ export default function CtaFinal() {
           </a>
           <a
             href={`mailto:${EMAIL}`}
+            aria-label="Enviar email"
             className={cn(
               buttonVariants({ variant: "outline", size: "lg" }),
               "border-white/30 text-white hover:bg-white/10 gap-2 text-base bg-transparent"
@@ -47,6 +56,15 @@ export default function CtaFinal() {
             Mandar un mail
           </a>
         </div>
+
+        <a
+          href={phoneUrl}
+          aria-label="Llamar por teléfono"
+          className="inline-flex items-center gap-2 text-white/60 hover:text-white/90 text-sm transition-colors"
+        >
+          <Phone className="w-4 h-4" />
+          O llamanos directamente
+        </a>
       </div>
     </section>
   );

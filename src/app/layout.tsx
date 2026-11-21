@@ -17,21 +17,24 @@ const sourceSans = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
-  title: "Encendé — Tu negocio en internet. Sin vueltas.",
+  metadataBase: new URL("https://encende.click"),
+  title: "Encendé — Páginas que trabajan por tu negocio",
   description:
-    "Creamos páginas web para negocios que todavía hacen todo a mano. Simple, rápido, sin tecnicismos.",
+    "No solo para que te encuentren: páginas que toman turnos, cobran señas, reciben pedidos y venden mientras vos trabajás. Listas en días, sin tecnicismos.",
   openGraph: {
-    title: "Encendé — Tu negocio en internet. Sin vueltas.",
+    title: "Encendé — Páginas que trabajan por tu negocio",
     description:
-      "Creamos páginas web para negocios que todavía hacen todo a mano. Simple, rápido, sin tecnicismos.",
+      "No solo para que te encuentren: páginas que toman turnos, cobran señas, reciben pedidos y venden mientras vos trabajás. Listas en días, sin tecnicismos.",
     type: "website",
     locale: "es_AR",
+    url: "https://encende.click",
+    siteName: "Encendé",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Encendé — Tu negocio en internet. Sin vueltas.",
+    title: "Encendé — Páginas que trabajan por tu negocio",
     description:
-      "Creamos páginas web para negocios que todavía hacen todo a mano. Simple, rápido, sin tecnicismos.",
+      "No solo para que te encuentren: páginas que toman turnos, cobran señas, reciben pedidos y venden mientras vos trabajás. Listas en días, sin tecnicismos.",
   },
 };
 

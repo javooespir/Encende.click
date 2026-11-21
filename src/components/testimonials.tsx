@@ -1,102 +1,90 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
-import { Star } from "lucide-react";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { motion } from "framer-motion";
+import { Camera, ArrowRight } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
+import { useWhatsAppNumber, buildWaUrl } from "@/hooks/use-whatsapp";
 
-const testimonials = [
-  {
-    initials: "MR",
-    name: "Marcos R.",
-    role: "Barbería, Buenos Aires",
-    quote:
-      "Antes perdía turnos porque estaba cortando y el teléfono no paraba. Ahora mis clientes reservan solos, a cualquier hora. No tengo que hacer nada.",
-    rating: 5,
-  },
-  {
-    initials: "LP",
-    name: "Laura P.",
-    role: "Restaurante, Córdoba",
-    quote:
-      "Subí el menú QR y paré de imprimir cartas cada vez que cambia el precio. Mis clientes lo scanean con el celular y listo. Re simple.",
-    rating: 5,
-  },
-  {
-    initials: "DF",
-    name: "Diego F.",
-    role: "Taller mecánico, Rosario",
-    quote:
-      "En tres días tenía mi página y empecé a aparecer cuando la gente buscaba un taller cerca. No lo podía creer, fue más fácil de lo que pensaba.",
-    rating: 5,
-  },
+const WA_TEXT = "Hola! Me interesa tener mi página web.";
+
+const placeholders = [
+  { label: "Peluquería · Buenos Aires" },
+  { label: "Centro de estética · GBA" },
+  { label: "Restaurante · CABA" },
 ];
 
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  show: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, delay: i * 0.1, ease: "easeOut" },
-  }),
-};
-
 export default function Testimonials() {
+  const waNumber = useWhatsAppNumber();
+  const waUrl = buildWaUrl(waNumber, WA_TEXT);
   return (
     <section className="py-24 px-4 sm:px-6 bg-white">
       <div className="max-w-6xl mx-auto">
         <motion.div
-          className="mb-16"
+          className="mb-4 max-w-2xl"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
-          <p className="text-accent font-semibold text-sm uppercase tracking-wider mb-3">
-            Testimonios
+          <p className="text-amber-700 font-semibold text-sm uppercase tracking-wider mb-3">
+            Resultados
           </p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-primary">
-            Lo que dicen los negocios
+          <h2 className="text-4xl sm:text-5xl font-bold text-primary mb-4">
+            Los primeros en confiar ya están adentro.
           </h2>
+          <p className="text-muted-foreground text-lg leading-relaxed">
+            Estamos arrancando. En las próximas semanas, las páginas y resultados
+            de nuestros primeros clientes van a estar acá — con fotos y videos reales.
+          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((t, i) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+          {placeholders.map((p, i) => (
             <motion.div
-              key={t.name}
-              className="flex flex-col gap-6 p-8 rounded-2xl border border-border bg-background hover:shadow-lg hover:border-primary/20 transition-all duration-300"
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="show"
+              key={p.label}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              custom={i}
+              transition={{ duration: 0.5, delay: i * 0.1, ease: "easeOut" }}
+              className="flex flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-border bg-muted/30 p-10 min-h-[220px] text-center"
             >
-              {/* Stars */}
-              <div className="flex gap-1">
-                {Array.from({ length: t.rating }).map((_, j) => (
-                  <Star key={j} className="w-4 h-4 fill-accent text-accent" />
-                ))}
+              <div className="w-12 h-12 rounded-full bg-primary/8 flex items-center justify-center">
+                <Camera className="w-5 h-5 text-primary/40" />
               </div>
-
-              <p className="text-foreground leading-relaxed text-[15px] flex-1">
-                &ldquo;{t.quote}&rdquo;
-              </p>
-
-              <div className="flex items-center gap-4">
-                <Avatar>
-                  <AvatarFallback className="bg-primary/10 text-primary font-semibold text-sm">
-                    {t.initials}
-                  </AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="font-semibold text-sm text-foreground">
-                    {t.name}
-                  </p>
-                  <p className="text-xs text-muted-foreground">{t.role}</p>
-                </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/60 mb-1">
+                  Próximamente
+                </p>
+                <p className="text-sm text-muted-foreground">{p.label}</p>
               </div>
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          className="mt-12 flex flex-col sm:flex-row items-start sm:items-center gap-4"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
+          <p className="text-muted-foreground text-base">
+            ¿Querés que tu negocio sea uno de los primeros?
+          </p>
+          <a
+            href={waUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(
+              buttonVariants({ variant: "outline", size: "sm" }),
+              "gap-2 border-primary text-primary hover:bg-primary hover:text-white shrink-0"
+            )}
+          >
+            Hablamos
+            <ArrowRight className="w-4 h-4" />
+          </a>
+        </motion.div>
       </div>
     </section>
   );
