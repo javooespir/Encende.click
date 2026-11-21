@@ -172,11 +172,13 @@ export default function Hero() {
             </span>
             <span aria-hidden="true">
               Una página que
-              <span className="relative block overflow-hidden pb-2 -mb-2">
-                <AnimatePresence mode="wait" initial={false}>
+              {/* Grid de una celda: la frase que sale y la que entra se cruzan
+                  en el mismo lugar, sin dejar el renglón vacío. */}
+              <span className="relative grid overflow-hidden pb-2 -mb-2">
+                <AnimatePresence initial={false}>
                   <motion.span
                     key={escena.frase}
-                    className="relative inline-block text-accent"
+                    className="relative inline-block justify-self-start [grid-area:1/1] text-accent"
                     initial={{ y: "105%", opacity: 0, filter: "blur(8px)" }}
                     animate={{ y: "0%", opacity: 1, filter: "blur(0px)" }}
                     exit={{ y: "-105%", opacity: 0, filter: "blur(8px)" }}
